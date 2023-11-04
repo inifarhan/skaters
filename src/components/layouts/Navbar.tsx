@@ -8,7 +8,7 @@ import MobileNav from './MobileNav';
 
 const Navbar = () => {
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background p-3 lg:px-6'>
+    <header className='sticky top-0 z-50 w-full border-b bg-background p-3 lg:px-4'>
       <nav className='max-w-7xl mx-auto flex items-center justify-between'>
         {/* Left */}
         <MobileNav />

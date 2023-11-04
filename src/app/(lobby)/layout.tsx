@@ -8,7 +8,9 @@ export default function LobbyLayout({
   return (
     <div>
       <Navbar />
-      {children}
+      <div className="max-w-7xl mx-auto">
+        {children}
+      </div>
     </div>
   )
 }
