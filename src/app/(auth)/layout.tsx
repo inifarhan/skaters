@@ -1,9 +1,17 @@
 import { Icons } from '@/components/Icons'
 import { AspectRatio } from '@/components/ui/AspectRatio'
+import { getAuthSession } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function AuthLayout({ children }: React.PropsWithChildren) {
+export default async function AuthLayout({ children }: React.PropsWithChildren) {
+  const session = await getAuthSession()
+
+  if (session?.user) {
+    redirect('/')
+  }
+
   return (
     <div className='grid min-h-screen grid-cols-1 overflow-hidden md:grid-cols-3 lg:grid-cols-2'>
       <AspectRatio ratio={16 / 9}>
