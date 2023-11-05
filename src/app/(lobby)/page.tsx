@@ -7,6 +7,7 @@ export default function Lobby() {
     <div>
       <Billboard />
       <Heading />
+      <Categories />
     </div>
   );
 }
