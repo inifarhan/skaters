@@ -1,11 +1,12 @@
-import Billboard from "@/components/Billboard";
+import Billboard from '@/components/Billboard';
+import Categories from '@/components/Categories';
+import Heading from '@/components/Heading';
 
 export default function Lobby() {
   return (
     <div>
       <Billboard />
-      <div className="mb-[1000px]">Hello world</div>
-      hello
+      <Heading />
     </div>
   );
 }
