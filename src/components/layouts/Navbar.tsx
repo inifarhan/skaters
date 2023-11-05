@@ -32,7 +32,7 @@ const Navbar = () => {
             <ShoppingCart className='w-4 h-4' />0
           </Button>
           <Link
-            href='/signin'
+            href='/sign-in'
             className={buttonVariants({
               size: 'sm',
             })}>
