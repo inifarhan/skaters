@@ -9,14 +9,14 @@ import {
   CardTitle,
 } from '@/components/ui/Card'
 
-export default async function SignInPage() {
+export default async function SignUpPage() {
   return (
     <div className='mx-auto'>
       <Card className='w- xl:w-[500px]'>
         <CardHeader className='space-y-1'>
-          <CardTitle className='text-2xl'>Sign in</CardTitle>
+          <CardTitle className='text-2xl'>Sign up</CardTitle>
           <CardDescription>
-            Choose your preferred sign in method
+            Choose your preferred sign up method
           </CardDescription>
         </CardHeader>
         <CardContent className='grid grid-cols-1'>
@@ -25,13 +25,13 @@ export default async function SignInPage() {
         <CardFooter className='flex flex-wrap items-center justify-between gap-2'>
           <div className='text-sm text-muted-foreground'>
             <span className='mr-1 inline-block'>
-              Don&apos;t have an account?
+              Already have an account?
             </span>
             <Link
-              aria-label='Sign up'
-              href='/sign-up'
+              aria-label='Sign in'
+              href='/sign-in'
               className='text-primary underline-offset-4 transition-colors hover:underline'>
-              Sign up
+              Sign in
             </Link>
           </div>
         </CardFooter>
