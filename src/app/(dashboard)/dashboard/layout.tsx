@@ -19,7 +19,7 @@ export default async function DashboardLayout({
         <aside className='hidden md:block border-r min-h-screen pt-10 pr-6 w-[200px]'>
           <SidebarNav />
         </aside>
-        <main className='mx-auto'>{children}</main>
+        <main className='pt-10 pl-10 w-full'>{children}</main>
       </div>
     </>
   )
