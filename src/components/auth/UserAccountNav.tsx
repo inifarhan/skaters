@@ -22,7 +22,7 @@ interface UserAccountNavProps {
 const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className='outline-none'>
         <UserAvatar
           className='h-8 w-8'
           user={{
