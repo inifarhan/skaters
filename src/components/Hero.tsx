@@ -4,7 +4,7 @@ import { Icons } from './Icons';
 import { buttonVariants } from './ui/Button';
 import { cn } from '@/lib/utils';
 
-const Heading = async () => {
+const Hero = async () => {
   async function getGithubStars(): Promise<number | null> {
     try {
       const response = await fetch(
@@ -78,4 +78,4 @@ const Heading = async () => {
   );
 };
 
-export default Heading;
+export default Hero;
