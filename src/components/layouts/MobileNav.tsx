@@ -26,8 +26,18 @@ const MobileNav = () => {
               <span className='sr-only'>Home</span>
             </Link>
             <div className='text-sm'>
-              <Accordion type='multiple' defaultValue={['item-1', 'item-2']} className='w-full'>
+              <Accordion type='multiple' defaultValue={['item-1', 'item-2', 'item-3']} className='w-full'>
                 <AccordionItem value='item-1'>
+                  <AccordionTrigger>My Dashboard</AccordionTrigger>
+                  <AccordionContent>
+                    <div className='flex flex-col gap-y-2 text-muted-foreground'>
+                      <Link onClick={() => setIsOpen(false)} href='/dashboard/stores'>
+                        Stores
+                      </Link>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value='item-2'>
                   <AccordionTrigger>Lobby</AccordionTrigger>
                   <AccordionContent>
                     <div className='flex flex-col gap-y-2 text-muted-foreground'>
@@ -43,7 +53,7 @@ const MobileNav = () => {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value='item-2'>
+                <AccordionItem value='item-3'>
                   <AccordionTrigger>Categories</AccordionTrigger>
                   <AccordionContent>
                     <div className='flex flex-col gap-y-2 text-muted-foreground'>

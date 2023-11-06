@@ -16,8 +16,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ user }) => {
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-background p-3 lg:px-4'>
-      <nav className='max-w-7xl mx-auto flex items-center justify-between'>
+    <header className='sticky top-0 z-50 w-full border-b bg-background py-3'>
+      <nav className='container px-4 flex items-center justify-between'>
         {/* Left */}
         <MobileNav />
         <DesktopNav />
