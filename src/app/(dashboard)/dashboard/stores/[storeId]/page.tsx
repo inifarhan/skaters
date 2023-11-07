@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+
 import { UpdateStoreForm } from '@/components/forms/UpdateStoreForm'
 import {
   Card,
@@ -8,7 +10,6 @@ import {
 } from '@/components/ui/Card'
 import { getAuthSession } from '@/lib/auth'
 import prisma from '@/lib/db'
-import { redirect } from 'next/navigation'
 
 const UpdateStorePage = async ({
   params: { storeId },

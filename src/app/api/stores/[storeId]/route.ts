@@ -57,3 +57,40 @@ export async function PATCH(
     })
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { storeId: string } },
+) {
+  try {
+    const session = await getAuthSession()
+
+    if (!session?.user) {
+      return new Response('Unauthorized', { status: 401 })
+    }
+
+    const store = await prisma.store.findUnique({
+      where: {
+        id: params.storeId,
+        userId: session.user.id,
+      },
+    })
+
+    if (!store) {
+      return new Response('Store not found', { status: 404 })
+    }
+
+    await prisma.store.delete({
+      where: {
+        id: params.storeId,
+        userId: session.user.id,
+      },
+    })
+
+    return new Response('OK')
+  } catch (error) {
+    return new Response('Could not update store, please try again later.', {
+      status: 500,
+    })
+  }
+}

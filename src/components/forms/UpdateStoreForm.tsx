@@ -19,6 +19,7 @@ import {
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { storePayload, storeSchema } from '@/lib/validators/store'
+import { AlertModal } from '@/components/modals/AlertModal'
 
 interface UpdateStoreFormProps {
   store: Store
@@ -26,6 +27,7 @@ interface UpdateStoreFormProps {
 
 export const UpdateStoreForm: React.FC<UpdateStoreFormProps> = ({ store }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
 
   const form = useForm<storePayload>({
     resolver: zodResolver(storeSchema),
@@ -48,65 +50,83 @@ export const UpdateStoreForm: React.FC<UpdateStoreFormProps> = ({ store }) => {
     }
   }
 
-  const onDelete = async (e: any) => {
-    e.preventDefault()
-    console.log('dihapus')
+  const onDelete = async () => {
+    try {
+      setIsLoading(true)
+      await axios.delete(`/api/stores/${store.id}`)
+      window.location.assign('/dashboard/stores')
+      toast.success('Store is deleted.')
+    } catch (error: any) {
+      toast.error(error.response.data)
+    } finally {
+      setIsLoading(false)
+      setOpen(false)
+    }
   }
 
   return (
-    <Form {...form}>
-      <form
-        className='grid w-full max-w-xl gap-5'
-        onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name='name'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder='Type store name here.'
-                  disabled={isLoading}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='description'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder='Type store description here.'
-                  disabled={isLoading}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/* <Button isLoading={isLoading}>
-          Add Store
-          <span className='sr-only'>Add Store</span>
-        </Button> */}
-        <div className='flex flex-col gap-2 xl:flex-row'>
-          <Button isLoading={isLoading}>
-            Update store
-            <span className='sr-only'>Update store</span>
-          </Button>
-          <Button onClick={onDelete} variant='destructive'>
-            Delete store
-            <span className='sr-only'>Delete store</span>
-          </Button>
-        </div>
-      </form>
-    </Form>
+    <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={isLoading}
+      />
+      <Form {...form}>
+        <form
+          className='grid w-full max-w-xl gap-5'
+          onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name='name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Type store name here.'
+                    disabled={isLoading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='description'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder='Type store description here.'
+                    disabled={isLoading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className='flex flex-col gap-2 xl:flex-row'>
+            <Button isLoading={isLoading}>
+              Update store
+              <span className='sr-only'>Update store</span>
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault()
+                setOpen(true)
+              }}
+              variant='destructive'>
+              Delete store
+              <span className='sr-only'>Delete store</span>
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </>
   )
 }
