@@ -15,11 +15,11 @@ export default async function DashboardLayout({
   return (
     <>
       <Navbar user={session?.user} />
-      <div className='container flex'>
+      <div className='container px-6 flex'>
         <aside className='hidden md:block border-r min-h-screen pt-10 pr-6 w-[200px]'>
           <SidebarNav />
         </aside>
-        <main className='pt-10 pl-10 w-full'>{children}</main>
+        <main className='pt-10 md:pl-10 w-full'>{children}</main>
       </div>
     </>
   )
