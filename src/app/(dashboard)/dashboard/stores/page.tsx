@@ -7,10 +7,10 @@ import { Separator } from '@/components/ui/Separator'
 import { getAuthSession } from '@/lib/auth'
 import prisma from '@/lib/db'
 
-const DashboardStoresPage = async () => {
+const StorePage = async () => {
   const session = await getAuthSession()
 
-  const store = await prisma.store.findFirst({
+  const stores = await prisma.store.findMany({
     where: {
       userId: session?.user.id,
     },
@@ -26,10 +26,12 @@ const DashboardStoresPage = async () => {
       </div>
       <Separator className='my-4' />
       <section className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-        {store ? <StoreCard store={store!} /> : null}
+        {stores
+          ? stores.map((store) => <StoreCard key={store.id} store={store!} />)
+          : null}
       </section>
     </>
   )
 }
 
-export default DashboardStoresPage
+export default StorePage

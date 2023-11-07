@@ -27,7 +27,9 @@ export function StoreCard({ store }: StoreCardProps) {
         </AspectRatio>
         <CardHeader>
           <CardTitle className='line-clamp-1 text-lg'>{store.name}</CardTitle>
-          <CardDescription className='line-clamp-2'>{store.description}</CardDescription>
+          <CardDescription className='line-clamp-2'>
+            {store.description}
+          </CardDescription>
         </CardHeader>
       </Card>
       <span className='sr-only'>{store.name}</span>
