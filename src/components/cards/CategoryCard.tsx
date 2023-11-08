@@ -1,28 +1,48 @@
-import Link from 'next/link';
+import { Category } from '@prisma/client'
+import Image from 'next/image'
+import Link from 'next/link'
+
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../ui/Card';
-import { Icons } from '../Icons';
+} from '@/components/ui/Card'
+import prisma from '@/lib/db'
 
-const CategoryCard = ({ category }: { category: string }) => {
+interface CategoryCardProps {
+  category: Category
+}
+
+const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
+  const products = await prisma.product.count({
+    where: {
+      categoryId: category.slug,
+    },
+  })
+
   return (
-    <Link key={category} href={`/categories/${category}`}>
-      <span className='sr-only'>{category}</span>
+    <Link href={`/categories/${category.slug}`}>
+      <span className='sr-only'>{category.name}</span>
       <Card className='relative h-full w-full overflow-hidden rounded-lg bg-transparent transition-colors hover:bg-muted/50'>
         <CardHeader>
-          <Icons.logo className='h-8 w-8' />
+          <Image
+            src={`/svg/${category.slug}.svg`}
+            alt='test'
+            width={32}
+            height={32}
+          />
         </CardHeader>
         <CardContent className='space-y-1.5'>
-          <CardTitle className='capitalize text-zinc-200'>{category}</CardTitle>
-          <CardDescription>10 products</CardDescription>
+          <CardTitle className='capitalize text-zinc-200'>
+            {category.name}
+          </CardTitle>
+          <CardDescription>{products}</CardDescription>
         </CardContent>
       </Card>
     </Link>
-  );
-};
+  )
+}
 
-export default CategoryCard;
+export default CategoryCard

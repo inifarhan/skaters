@@ -1,6 +1,25 @@
-import CategoryCard from "./cards/CategoryCard";
+import CategoryCard from './cards/CategoryCard'
 
-const Categories = () => {
+const Categories = async () => {
+  const categories = [
+    {
+      name: 'Skateboards',
+      slug: 'skateboards',
+    },
+    {
+      name: 'Clothing',
+      slug: 'clothing',
+    },
+    {
+      name: 'Shoes',
+      slug: 'shoes',
+    },
+    {
+      name: 'Accessories',
+      slug: 'accessories',
+    },
+  ]
+
   return (
     <section
       id='categories'
@@ -15,13 +34,12 @@ const Categories = () => {
         </h3>
       </div>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        <CategoryCard category='Skateboards' />
-        <CategoryCard category='Clothing' />
-        <CategoryCard category='Shoes' />
-        <CategoryCard category='Accessories' />
+        {categories.map((category) => (
+          <CategoryCard key={category.slug} category={category} />
+        ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Categories;
+export default Categories
