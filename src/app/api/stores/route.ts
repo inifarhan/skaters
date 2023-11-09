@@ -18,24 +18,24 @@ export async function POST(req: Request) {
     const { name, description } = storeSchema.parse(body)
 
     const slug = slugify(name, {
-      lower: true
+      lower: true,
     })
 
-    const isSlugExist = await prisma.store.findUnique({
+    const isStoreExist = await prisma.store.findUnique({
       where: {
-        slug,
+        id: slug,
       },
     })
 
-    if (isSlugExist) {
+    if (isStoreExist) {
       return new Response('Store name is already exist', { status: 409 })
     }
 
     await prisma.store.create({
       data: {
+        id: slug,
         name,
         description,
-        slug,
         userId: session.user.id,
       },
     })

@@ -57,10 +57,9 @@ model User {
 }
 
 model Store {
-  id          String    @id @default(uuid())
+  id          String    @id
   name        String
   description String?
-  slug        String    @unique
   userId      String
   User        User      @relation(fields: [userId], references: [id])
   createdAt   DateTime  @default(now())

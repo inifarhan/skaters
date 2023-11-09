@@ -24,13 +24,13 @@ export async function PATCH(
       lower: true,
     })
 
-    const isSlugExist = await prisma.store.findUnique({
+    const isStoreExist = await prisma.store.findUnique({
       where: {
-        slug,
+        id: slug,
       },
     })
 
-    if (isSlugExist) {
+    if (isStoreExist) {
       return new Response('Store name is already exist', { status: 409 })
     }
 
@@ -40,9 +40,9 @@ export async function PATCH(
         userId: session.user.id,
       },
       data: {
+        id: slug,
         name,
         description,
-        slug,
       },
     })
 
