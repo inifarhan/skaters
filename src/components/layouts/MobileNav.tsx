@@ -44,10 +44,10 @@ const MobileNav = () => {
                       <Link onClick={() => setIsOpen(false)} href='/products'>
                         Products
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/categories'>
+                      <Link onClick={() => setIsOpen(false)} href='/#categories'>
                         Categories
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/dashboard'>
+                      <Link onClick={() => setIsOpen(false)} href='/dashboard/stores'>
                         Create store
                       </Link>
                     </div>

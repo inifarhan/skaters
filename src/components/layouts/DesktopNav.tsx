@@ -39,7 +39,7 @@ const DesktopNav = () => {
                 <ListItem href='/#categories' title='Categories'>
                   See all categories we have
                 </ListItem>
-                <ListItem href='/dashboard' title='Create store'>
+                <ListItem href='/dashboard/stores' title='Create store'>
                   Create store and start selling products
                 </ListItem>
               </ul>
