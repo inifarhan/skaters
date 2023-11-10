@@ -81,6 +81,7 @@ model Product {
   slug        String
   description String?
   price       Decimal
+  images      Json
   storeId     String
   Store       Store    @relation(fields: [storeId], references: [id])
   categoryId  String

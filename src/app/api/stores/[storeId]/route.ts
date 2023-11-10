@@ -52,6 +52,8 @@ export async function PATCH(
       return new Response('Invalid request data passed', { status: 422 })
     }
 
+    console.log(error)
+
     return new Response('Could not update store, please try again later.', {
       status: 500,
     })

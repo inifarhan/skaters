@@ -13,11 +13,14 @@ export const productSchema = z.object({
   category: z.enum(['skateboards', 'clothing', 'shoes', 'accessories'], {
     required_error: 'Category must be filled',
   }),
-  price: z.coerce.number({
-    invalid_type_error: 'Price must be filled'
-  }).min(1000, {
-    message: 'Price must be greater than or equal to Rp 1.000',
-  }),
+  price: z.coerce
+    .number({
+      required_error: 'Price must be filled',
+    })
+    .min(1000, {
+      message: 'Price must be greater than or equal to Rp 1.000',
+    }),
+  images: z.string().array(),
 })
 
 export type productPayload = z.infer<typeof productSchema>

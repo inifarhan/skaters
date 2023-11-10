@@ -18,7 +18,8 @@ export async function POST(
 
     const body = await req.json()
 
-    const { name, description, category, price } = productSchema.parse(body)
+    const { name, description, category, price, images } =
+      productSchema.parse(body)
 
     const slug = slugify(name, {
       lower: true,
@@ -32,9 +33,12 @@ export async function POST(
     })
 
     if (isProductExist) {
-      return new Response('You have a product with the same name in this store.', {
-        status: 409,
-      })
+      return new Response(
+        'You have a product with the same name in this store.',
+        {
+          status: 409,
+        },
+      )
     }
 
     await prisma.product.create({
@@ -45,6 +49,7 @@ export async function POST(
         categoryId: category,
         storeId: params.storeId,
         price,
+        images,
       },
     })
 
@@ -53,6 +58,8 @@ export async function POST(
     if (error instanceof z.ZodError) {
       return new Response('Invalid request data passed', { status: 422 })
     }
+
+    console.log(error)
 
     return new Response('Could not create product, please try again later.', {
       status: 500,

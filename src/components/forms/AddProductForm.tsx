@@ -22,10 +22,11 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/Select'
 import { Textarea } from '@/components/ui/Textarea'
 import { productPayload, productSchema } from '@/lib/validators/product'
+import { FileUpload } from './FileUpload'
 
 export function AddProductForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -97,7 +98,7 @@ export function AddProductForm() {
             control={form.control}
             name='category'
             render={({ field }) => (
-              <FormItem className='flex-1'>
+              <FormItem className='flex-1 w-full'>
                 <FormLabel>Category</FormLabel>
                 <Select
                   value={field.value}
@@ -111,18 +112,10 @@ export function AddProductForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value='skateboards'>
-                      Skateboards
-                    </SelectItem>
-                    <SelectItem value='clothing'>
-                      Clothing
-                    </SelectItem>
-                    <SelectItem value='shoes'>
-                      Shoes
-                    </SelectItem>
-                    <SelectItem value='accessories'>
-                      Accessories
-                    </SelectItem>
+                    <SelectItem value='skateboards'>Skateboards</SelectItem>
+                    <SelectItem value='clothing'>Clothing</SelectItem>
+                    <SelectItem value='shoes'>Shoes</SelectItem>
+                    <SelectItem value='accessories'>Accessories</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -133,7 +126,7 @@ export function AddProductForm() {
             control={form.control}
             name='price'
             render={({ field }) => (
-              <FormItem className='flex-1'>
+              <FormItem className='flex-1 w-full'>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
                   <div className='relative'>
@@ -154,6 +147,32 @@ export function AddProductForm() {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name='images'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Images</FormLabel>
+              <FormControl>
+                <FileUpload
+                  endpoint='imageUploader'
+                  value={field.value}
+                  onChange={(url) =>
+                    field.value
+                      ? field.onChange([...field.value, ...url])
+                      : field.onChange([...url])
+                  }
+                  onRemove={(url) =>
+                    field.onChange([
+                      ...field.value.filter((current) => current !== url),
+                    ])
+                  }
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button isLoading={isLoading}>
           Add Product
           <span className='sr-only'>Add Product</span>

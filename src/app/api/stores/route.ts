@@ -46,6 +46,8 @@ export async function POST(req: Request) {
       return new Response('Invalid request data passed', { status: 422 })
     }
 
+    console.log(error)
+
     return new Response('Could not create store, please try again later.', {
       status: 500,
     })
