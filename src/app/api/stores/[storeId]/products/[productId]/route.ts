@@ -1,5 +1,8 @@
 import slugify from 'slugify'
 import { z } from 'zod'
+import { UTApi } from 'uploadthing/server'
+
+const utapi = new UTApi()
 
 import { getAuthSession } from '@/lib/auth'
 import prisma from '@/lib/db'
@@ -62,6 +65,49 @@ export async function PATCH(
     console.log(error)
 
     return new Response('Could not update product, please try again later.', {
+      status: 500,
+    })
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { storeId: string; productId: string } },
+) {
+  try {
+    const session = await getAuthSession()
+
+    if (!session?.user) {
+      return new Response('Unauthorized', { status: 401 })
+    }
+
+    const product = await prisma.product.findFirst({
+      where: {
+        id: params.productId,
+        storeId: params.storeId,
+      },
+    })
+
+    if (!product) {
+      return new Response('Product not found.', {
+        status: 404,
+      })
+    }
+
+    await prisma.product.delete({
+      where: {
+        storeId: params.storeId,
+        id: params.productId,
+      },
+    })
+
+    // @ts-expect-error
+    await utapi.deleteFiles(product.images.map((img) => img.key))
+
+    return new Response('OK')
+  } catch (error) {
+    console.log(error)
+    return new Response('Could not delete product, please try again later.', {
       status: 500,
     })
   }

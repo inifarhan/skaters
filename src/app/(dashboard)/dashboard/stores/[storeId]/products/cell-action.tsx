@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu'
 
-import { ProductColumn } from '../columns'
+import { ProductColumn } from './columns'
 
 interface CellActionProps {
   data: ProductColumn
@@ -35,21 +35,16 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   }
 
   const onDelete = async () => {
-    // try {
-    //   setLoading(true)
-    //   await axios.delete(`/api/${params.storeId}/products/${data.id}`)
-    //   router.refresh()
-    //   toast.success('Product deleted.')
-    // } catch (error) {
-    //   toast.error('Something went wrong')
-    // } finally {
-    //   setLoading(false)
-    //   setOpen(false)
-    // }
     try {
-      await axios.delete('/api/utapi')
+      setLoading(true)
+      await axios.delete(`/api/stores/${params.storeId}/products/${data.id}`)
+      router.refresh()
+      toast.success('Product deleted.')
     } catch (error) {
-      console.log(error)
+      toast.error('Something went wrong')
+    } finally {
+      setLoading(false)
+      setOpen(false)
     }
   }
 

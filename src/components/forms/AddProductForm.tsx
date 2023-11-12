@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/Select'
 import { Textarea } from '@/components/ui/Textarea'
 import { productPayload, productSchema } from '@/lib/validators/product'
+
 import { FileUpload } from './FileUpload'
 
 export function AddProductForm() {
@@ -157,14 +158,14 @@ export function AddProductForm() {
                 <FileUpload
                   endpoint='imageUploader'
                   value={field.value}
-                  onChange={(url) =>
+                  onChange={(file) =>
                     field.value
-                      ? field.onChange([...field.value, ...url])
-                      : field.onChange([...url])
+                      ? field.onChange([...field.value, ...file])
+                      : field.onChange([...file])
                   }
                   onRemove={(url) =>
                     field.onChange([
-                      ...field.value.filter((current) => current !== url),
+                      ...field.value.filter((current) => current.url !== url),
                     ])
                   }
                 />

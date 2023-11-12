@@ -50,7 +50,10 @@ export function UpdateProductForm({ product }: { product: Product }) {
   const onSubmit = async (values: productPayload) => {
     try {
       setIsLoading(true)
-      await axios.patch(`/api/stores/${params.storeId}/products/${product.id}`, values)
+      await axios.patch(
+        `/api/stores/${params.storeId}/products/${product.id}`,
+        values,
+      )
       toast.success('Product has been updated.')
       window.location.assign(`/dashboard/stores/${params.storeId}/products`)
     } catch (error: any) {
@@ -164,14 +167,14 @@ export function UpdateProductForm({ product }: { product: Product }) {
                 <FileUpload
                   endpoint='imageUploader'
                   value={field.value}
-                  onChange={(url) =>
+                  onChange={(file) =>
                     field.value
-                      ? field.onChange([...field.value, ...url])
-                      : field.onChange([...url])
+                      ? field.onChange([...field.value, ...file])
+                      : field.onChange([...file])
                   }
                   onRemove={(url) =>
                     field.onChange([
-                      ...field.value.filter((current) => current !== url),
+                      ...field.value.filter((current) => current.url !== url),
                     ])
                   }
                 />

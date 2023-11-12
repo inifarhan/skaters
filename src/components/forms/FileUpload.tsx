@@ -2,15 +2,16 @@
 
 import { X } from 'lucide-react'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
+import { UploadFileResponse } from 'uploadthing/client'
 
 import { Button } from '@/components/ui/Button'
 import { UploadButton } from '@/lib/uploadthing'
-import toast from 'react-hot-toast'
 
 interface FileUploadProps {
-  onChange: (value: string[]) => void
+  onChange: (value: UploadFileResponse[]) => void
   onRemove: (value: string) => void
-  value?: string[]
+  value?: UploadFileResponse[]
   endpoint: 'imageUploader'
 }
 
@@ -24,18 +25,23 @@ export const FileUpload = ({
     <>
       {value ? (
         <div className='pb-5 flex flex-wrap gap-4'>
-          {value?.map((img, index) => (
+          {value?.map((item, index) => (
             <div key={index} className='relative w-[200px] h-[200px]'>
               <Button
                 type='button'
                 className='z-10 absolute -top-3 -right-3 hover:bg-destructive'
-                onClick={() => onRemove(img)}
+                onClick={() => onRemove(item.url)}
                 variant='destructive'
                 size='icon'
               >
                 <X className='h-6 w-6' />
               </Button>
-              <Image fill className='rounded-md object-cover' alt='Image' src={img} />
+              <Image
+                fill
+                className='rounded-md object-cover'
+                alt={item.name ?? 'Image'}
+                src={item.url}
+              />
             </div>
           ))}
         </div>
@@ -43,8 +49,7 @@ export const FileUpload = ({
       <UploadButton
         endpoint={endpoint}
         onClientUploadComplete={(res) => {
-          const imageUrl = res?.map((img) => img.url)!
-          onChange(imageUrl)
+          onChange(res!)
         }}
         onUploadError={(error: Error) => {
           toast.error(error.message)

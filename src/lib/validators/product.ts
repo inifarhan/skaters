@@ -18,7 +18,18 @@ export const productSchema = z.object({
     .min(1000, {
       message: 'Price must be greater than or equal to Rp 1.000',
     }),
-  images: z.string().array(),
+  images: z
+    .object({
+      fileKey: z.string(),
+      fileName: z.string(),
+      fileSize: z.number(),
+      fileUrl: z.string(),
+      key: z.string(),
+      name: z.string(),
+      size: z.number(),
+      url: z.string(),
+    })
+    .array(),
 })
 
 export type productPayload = z.infer<typeof productSchema>
