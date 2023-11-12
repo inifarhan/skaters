@@ -10,9 +10,7 @@ export const productSchema = z.object({
       message: 'Name must contain at most 50 character(s)',
     }),
   description: z.string().optional(),
-  category: z.enum(['skateboards', 'clothing', 'shoes', 'accessories'], {
-    required_error: 'Category must be filled',
-  }),
+  category: z.string().min(1),
   price: z.coerce
     .number({
       required_error: 'Price must be filled',
