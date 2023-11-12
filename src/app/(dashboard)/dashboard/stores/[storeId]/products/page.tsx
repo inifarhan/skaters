@@ -1,39 +1,37 @@
-import { ProductColumn, columns } from './columns'
 import { DataTable } from '@/components/ui/DataTable'
+import prisma from '@/lib/db'
+import { formatPrice } from '@/lib/utils'
+import { ProductColumn, columns } from './columns'
 
-async function getData(): Promise<ProductColumn[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: '728ed52f',
-      price: 2000000,
-      name: 'Seblak',
-      category: 'Clothing',
-      createdAt: '2023-11-08 12:07:39.905',
+export default async function ProductsPage({
+  params,
+}: {
+  params: { storeId: string }
+}) {
+  const data = await prisma.product.findMany({
+    where: {
+      storeId: params.storeId,
     },
-    {
-      id: '728ed52f',
-      price: 1000000,
-      name: 'Skateboard',
-      category: 'Skateboards',
-      createdAt: '2023-11-08 12:07:39.905',
+    include: {
+      Category: true,
     },
-    {
-      id: '728ed52f',
-      price: 150000,
-      name: 'Headset Hitam',
-      category: 'Accessories',
-      createdAt: '2023-11-08 12:07:39.905',
+    orderBy: {
+      createdAt: 'desc',
     },
-  ]
-}
+  })
 
-export default async function DemoPage() {
-  const data = await getData()
+  const formattedData: ProductColumn[] = data.map((item) => ({
+    id: item.id,
+    // @ts-expect-error
+    price: formatPrice(parseFloat(item.price)),
+    name: item.name,
+    category: item.Category.name,
+    createdAt: item.createdAt,
+  }))
 
   return (
     <div>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={formattedData} />
     </div>
   )
 }
