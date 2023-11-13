@@ -11,6 +11,8 @@ export type ProductColumn = {
   id: string
   price: string
   name: string
+  slug: string
+  storeId: string
   category: string
   createdAt: Date
 }

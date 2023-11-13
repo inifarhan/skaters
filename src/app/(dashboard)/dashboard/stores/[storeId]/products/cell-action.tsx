@@ -29,9 +29,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
 
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id)
-    toast.success('Product Id copied to the clipboard')
+  const onView = () => {
+    router.push(`/${data.storeId}/${data.slug}?productId=${data.id}`)
   }
 
   const onDelete = async () => {
@@ -65,7 +64,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <DropdownMenuItem onClick={() => onView()}>
             <Eye className='mr-2 h-4 w-4' />
             View
           </DropdownMenuItem>

@@ -25,6 +25,8 @@ export default async function ProductsPage({
     // @ts-expect-error
     price: formatPrice(parseFloat(item.price)),
     name: item.name,
+    slug: item.slug,
+    storeId: item.storeId,
     category: item.Category.name,
     createdAt: item.createdAt,
   }))
