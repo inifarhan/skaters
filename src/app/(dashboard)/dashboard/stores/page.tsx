@@ -14,6 +14,9 @@ const StorePage = async () => {
     where: {
       userId: session?.user.id,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   })
 
   return (
@@ -28,13 +31,11 @@ const StorePage = async () => {
       </div>
       <Separator className='my-4' />
       {stores.length > 0 ? (
-        stores.map((store) => (
-          <section
-            key={store.id}
-            className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        <section className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+          {stores.map((store) => (
             <StoreCard key={store.id} store={store!} />
-          </section>
-        ))
+          ))}
+        </section>
       ) : (
         <section className='flex h-[50vh] text-center gap-4 flex-col items-center justify-center'>
           <h2 className='font-semibold text-2xl'>You dont have any store</h2>

@@ -19,6 +19,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
+    cell: ({ row }) => (
+      <div className='truncate max-w-[300px]'>{row.original.name}</div>
+    ),
   },
   {
     accessorKey: 'category',
