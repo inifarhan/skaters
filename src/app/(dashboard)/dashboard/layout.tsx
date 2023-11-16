@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import Navbar from '@/components/layouts/Navbar'
 import { SidebarNav } from '@/components/layouts/SidebarNav'
 import { getAuthSession } from '@/lib/auth'
@@ -21,6 +22,7 @@ export default async function DashboardLayout({
         </aside>
         <main className='pt-10 md:pl-10 w-full'>{children}</main>
       </div>
+      <Footer />
     </>
   )
 }

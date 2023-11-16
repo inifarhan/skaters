@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import Navbar from '@/components/layouts/Navbar'
 import { getAuthSession } from '@/lib/auth'
 
@@ -12,6 +13,7 @@ export default async function LobbyLayout({
     <div>
       <Navbar user={session?.user} />
       <div className='max-w-7xl mx-auto'>{children}</div>
+      <Footer />
     </div>
   )
 }

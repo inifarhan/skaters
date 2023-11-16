@@ -4,6 +4,7 @@ import { extractRouterConfig } from 'uploadthing/server'
 
 import { ourFileRouter } from '@/app/api/uploadthing/core'
 import ClientProvider from '@/providers/ClientProvider'
+
 import './globals.css'
 
 export const metadata: Metadata = {

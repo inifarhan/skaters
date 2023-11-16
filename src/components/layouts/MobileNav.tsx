@@ -1,13 +1,21 @@
-import { Menu } from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
-import { Icons } from '../Icons';
-import { Button } from '../ui/Button';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/Sheet';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/Accordion';
+'use client'
+
+import { Menu } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+
+import { Icons } from '@/components/Icons'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/Accordion'
+import { Button } from '@/components/ui/Button'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/Sheet'
 
 const MobileNav = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
     <div className='flex lg:hidden'>
@@ -20,18 +28,29 @@ const MobileNav = () => {
         </SheetTrigger>
         <SheetContent side='left'>
           <div className='px-2 flex flex-col gap-4'>
-            <Link href='/' className='flex items-center' onClick={() => setIsOpen(false)}>
+            <Link
+              href='/'
+              className='flex items-center'
+              onClick={() => setIsOpen(false)}
+            >
               <Icons.logo className='mr-2 h-4 w-4' aria-hidden='true' />
               <span className='font-bold'>Skaters</span>
               <span className='sr-only'>Home</span>
             </Link>
             <div className='text-sm'>
-              <Accordion type='multiple' defaultValue={['item-1', 'item-2', 'item-3']} className='w-full'>
+              <Accordion
+                type='multiple'
+                defaultValue={['item-1', 'item-2', 'item-3']}
+                className='w-full'
+              >
                 <AccordionItem value='item-1'>
                   <AccordionTrigger>My Dashboard</AccordionTrigger>
                   <AccordionContent>
                     <div className='flex flex-col gap-y-2 text-muted-foreground'>
-                      <Link onClick={() => setIsOpen(false)} href='/dashboard/stores'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/dashboard/stores'
+                      >
                         Stores
                       </Link>
                     </div>
@@ -44,10 +63,16 @@ const MobileNav = () => {
                       <Link onClick={() => setIsOpen(false)} href='/products'>
                         Products
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/#categories'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/#categories'
+                      >
                         Categories
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/dashboard/stores'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/dashboard/stores'
+                      >
                         Create store
                       </Link>
                     </div>
@@ -57,16 +82,28 @@ const MobileNav = () => {
                   <AccordionTrigger>Categories</AccordionTrigger>
                   <AccordionContent>
                     <div className='flex flex-col gap-y-2 text-muted-foreground'>
-                      <Link onClick={() => setIsOpen(false)} href='/products?category=skateboards'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/products?category=skateboards'
+                      >
                         Skateboards
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/products?category=clothing'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/products?category=clothing'
+                      >
                         Clothing
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/products?category=shoes'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/products?category=shoes'
+                      >
                         Shoes
                       </Link>
-                      <Link onClick={() => setIsOpen(false)} href='/products?category=accessories'>
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href='/products?category=accessories'
+                      >
                         Accessories
                       </Link>
                     </div>
@@ -78,7 +115,7 @@ const MobileNav = () => {
         </SheetContent>
       </Sheet>
     </div>
-  );
-};
+  )
+}
 
-export default MobileNav;
+export default MobileNav
