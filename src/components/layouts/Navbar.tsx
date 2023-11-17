@@ -1,12 +1,14 @@
 'use client'
 
-import { Search, ShoppingCart } from 'lucide-react'
+import { Search } from 'lucide-react'
 import type { User } from 'next-auth'
 import Link from 'next/link'
-import { Button, buttonVariants } from '../ui/Button'
-import DesktopNav from './DesktopNav'
-import MobileNav from './MobileNav'
-import UserAccountNav from '../auth/UserAccountNav'
+
+import UserAccountNav from '@/components/auth/UserAccountNav'
+import CartButton from '@/components/cart/CartButton'
+import DesktopNav from '@/components/layouts/DesktopNav'
+import MobileNav from '@/components/layouts/MobileNav'
+import { Button, buttonVariants } from '@/components/ui/Button'
 
 interface NavbarProps {
   user?: User & {
@@ -17,7 +19,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ user }) => {
   return (
     <header className='sticky top-0 z-50 w-full border-b bg-background py-3'>
-      <nav className='container px-2 flex items-center justify-between'>
+      <nav className='container px-2 sm:px-4 lg:px-6 flex items-center justify-between'>
         {/* Left */}
         <MobileNav />
         <DesktopNav />
@@ -26,7 +28,8 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
         <div className='flex items-center gap-x-2'>
           <Button
             variant='outline'
-            className='relative h-9 w-9 p-0 xl:h-10 xl:w-60 xl:justify-start xl:px-3 xl:py-2'>
+            className='relative h-9 w-9 p-0 xl:h-10 xl:w-60 xl:justify-start xl:px-3 xl:py-2'
+          >
             <Search className='h-4 w-4 xl:mr-2' aria-hidden='true' />
             <span className='hidden xl:inline-flex'>Search products...</span>
             <span className='sr-only'>Search products</span>
@@ -38,9 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
             </kbd>
           </Button>
           {/* Cart */}
-          <Button size='sm' className='gap-x-1' variant='outline'>
-            <ShoppingCart className='w-4 h-4' />0
-          </Button>
+          <CartButton />
           {/* Auth */}
           {user ? (
             <UserAccountNav user={user} />
@@ -49,7 +50,8 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               href='/sign-in'
               className={buttonVariants({
                 size: 'sm',
-              })}>
+              })}
+            >
               Sign In
               <span className='sr-only'>Sign In</span>
             </Link>

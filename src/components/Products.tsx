@@ -21,7 +21,7 @@ const Products = async () => {
     <section
       id='products'
       aria-labelledby='product-heading'
-      className='space-y-8 px-4 xl:px-0 py-8 md:pt-10 lg:pt-24'
+      className='space-y-8 px-4 sm:px-6 lg:px-8 py-8 md:pt-10 lg:pt-24'
     >
       <div className='mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center'>
         <h2 className='text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl'>

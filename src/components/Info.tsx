@@ -3,8 +3,10 @@
 import { Product, Store } from '@prisma/client'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { MouseEventHandler } from 'react'
 
 import { Button } from '@/components/ui/Button'
+import useCart from '@/hooks/useCart'
 import { formatPrice } from '@/lib/utils'
 
 interface InfoProps {
@@ -14,6 +16,14 @@ interface InfoProps {
 }
 
 const Info: React.FC<InfoProps> = ({ product }) => {
+  const cart = useCart()
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+
+    cart.addItem(product)
+  }
+
   return (
     <div>
       <h1 className='text-3xl font-semibold text-gray-900'>{product.name}</h1>
@@ -38,7 +48,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
         )}
       </div>
       <div className='mt-10 flex items-center gap-x-3'>
-        <Button className='flex items-center gap-x-2'>
+        <Button onClick={onAddToCart} className='flex items-center gap-x-2'>
           Add To Cart
           <ShoppingCart />
         </Button>

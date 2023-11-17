@@ -4,9 +4,11 @@ import { Category, Product } from '@prisma/client'
 import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { MouseEventHandler } from 'react'
 
 import IconButton from '@/components/ui/IconButton'
 import { formatPrice } from '@/lib/utils'
+import useCart from '@/hooks/useCart'
 
 interface ProductCardProps {
   product: Product & {
@@ -15,6 +17,14 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const cart = useCart()
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+
+    cart.addItem(product)
+  }
+
   return (
     <div className='shadow-lg border group hover:-translate-y-1 hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4 h-full'>
       <Link
@@ -34,10 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className='hidden group-hover:block transition absolute w-full px-6 bottom-5'>
             <div className='flex justify-center'>
               <IconButton
-                onClick={(e) => {
-                  e.preventDefault()
-                  console.log('dipencet')
-                }}
+                onClick={onAddToCart}
                 icon={<ShoppingCart size={20} className='text-gray-600' />}
               />
             </div>

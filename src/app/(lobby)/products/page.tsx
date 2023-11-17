@@ -54,7 +54,7 @@ const Products = async ({
   const categories = await prisma.category.findMany()
 
   return (
-    <div className='flex flex-col py-10 px-4 xl:px-0'>
+    <div className='flex flex-col py-10 px-4 sm:px-6 lg:px-8'>
       <Heading
         title='Products'
         description='Explore all products from around the world'
