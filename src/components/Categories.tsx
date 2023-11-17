@@ -1,7 +1,9 @@
-import CategoryCard from './cards/CategoryCard'
+import { Category } from '@prisma/client'
+
+import CategoryCard from '@/components/cards/CategoryCard'
 
 const Categories = async () => {
-  const categories = [
+  const categories: Category[] = [
     {
       name: 'Skateboards',
       slug: 'skateboards',

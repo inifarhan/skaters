@@ -23,7 +23,7 @@ const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
   })
 
   return (
-    <Link href={`/categories/${category.slug}`}>
+    <Link href={`/products?category=${category.slug}`}>
       <span className='sr-only'>{category.name}</span>
       <Card className='relative h-full w-full overflow-hidden rounded-lg bg-transparent transition-colors hover:bg-muted/50'>
         <CardHeader>
@@ -38,7 +38,7 @@ const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
           <CardTitle className='capitalize text-zinc-200'>
             {category.name}
           </CardTitle>
-          <CardDescription>{products}</CardDescription>
+          <CardDescription>{products} Products</CardDescription>
         </CardContent>
       </Card>
     </Link>

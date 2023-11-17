@@ -5,6 +5,7 @@ import { Product } from '@prisma/client'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import ProductCard from '@/components/cards/ProductCard'
@@ -26,26 +27,35 @@ const ProductsList: React.FC<ProductsListProps> = ({
     threshold: 1,
   })
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ['infinite-query'],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await axios.get(
-        `/api/products?limit=${INFINITE_SCROLL_LIMIT}&page=${pageParam}`,
-      )
-      return data
+  const searchParams = useSearchParams()
+  const category = searchParams.get('category')
+
+  const { data, fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery(
+    {
+      queryKey: ['infinite-query'],
+      queryFn: async ({ pageParam }) => {
+        const { data } = await axios.get(
+          `/api/products?limit=${INFINITE_SCROLL_LIMIT}&page=${pageParam}&category=${category}`,
+        )
+        return data
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, allPages) => {
+        return allPages.length + 1
+      },
+      initialData: { pages: [initialProducts], pageParams: [1] },
     },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1
-    },
-    initialData: { pages: [initialProducts], pageParams: [1] },
-  })
+  )
 
   useEffect(() => {
     if (entry?.isIntersecting) {
       fetchNextPage()
     }
   }, [entry, fetchNextPage])
+
+  useEffect(() => {
+    refetch()
+  }, [category, refetch])
 
   const products = data?.pages.flatMap((page) => page) ?? initialProducts
 

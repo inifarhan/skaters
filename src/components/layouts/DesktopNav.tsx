@@ -49,16 +49,16 @@ const DesktopNav = () => {
             <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className='grid w-[400px] gap-3 p-6 md:w-[500px] md:grid-cols-2'>
-                <ListItem href='/products' title='Skateboards'>
+                <ListItem href='/products?category=skateboards' title='Skateboards'>
                   Explore the skateboards category
                 </ListItem>
-                <ListItem href='/#categories' title='Clothing'>
+                <ListItem href='/products?category=clothing' title='Clothing'>
                   Explore the clothing category
                 </ListItem>
-                <ListItem href='/dashboard' title='Shoes'>
+                <ListItem href='/products?category=shoes' title='Shoes'>
                   Explore the shoes category
                 </ListItem>
-                <ListItem href='/dashboard' title='Accessories'>
+                <ListItem href='/products?category=accessories' title='Accessories'>
                   Explore the accessories category
                 </ListItem>
               </ul>
