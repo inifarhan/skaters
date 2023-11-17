@@ -52,7 +52,7 @@ const Hero = async () => {
         </Link>
       ) : null}
       <h1 className='font-bold tracking-tighter text-3xl sm:text-5xl lg:text-6xl max-w-sm sm:max-w-4xl'>
-        An open source e-commerce skateshop built with Next.js
+        An open source e-commerce project built by inifarhan
       </h1>
       <h2 className='max-w-md sm:max-w-[42rem] leading-normal text-muted-foreground text-sm sm:text-xl sm:leading-8'>
         Buy and sell skateboarding gears from independent brands and stores
