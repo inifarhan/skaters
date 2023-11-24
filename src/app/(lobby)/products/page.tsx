@@ -56,7 +56,7 @@ const Products = async ({
   return (
     <div className='flex flex-col py-10 px-4 sm:px-6 lg:px-8'>
       <Heading
-        title='Products'
+        title={`Products (${totalProducts})`}
         description='Explore all products from around the world'
       />
       <Filter categories={categories} className='pt-10 pb-6' />

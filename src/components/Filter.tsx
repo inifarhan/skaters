@@ -2,7 +2,7 @@
 
 import { Category } from '@prisma/client'
 import { Plus } from 'lucide-react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/Button'
@@ -17,8 +17,6 @@ interface FilterProps extends React.HTMLAttributes<HTMLDivElement> {
 const Filter: React.FC<FilterProps> = ({ categories, className, ...props }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const router = useRouter()
-  const pathname = usePathname()
   const searchParams = useSearchParams()
 
   const selectedCategory = searchParams.get('category')
@@ -27,10 +25,10 @@ const Filter: React.FC<FilterProps> = ({ categories, className, ...props }) => {
     setIsOpen(false)
 
     if (categorySlug === selectedCategory) {
-      return router.push(pathname)
+      return window.location.assign('/products')
     }
 
-    router.replace(`${pathname}?category=${categorySlug}`)
+    window.location.assign(`/products?category=${categorySlug}`)
   }
 
   return (
