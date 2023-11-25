@@ -41,7 +41,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className='flex items-center justify-between px-1 pb-4'>
+      <div className='flex items-center justify-between gap-2 px-1 pb-4'>
         <Input
           placeholder='Search'
           // value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
