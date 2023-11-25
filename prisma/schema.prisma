@@ -54,6 +54,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   stores        Store[]
+  orders        Order[]
 }
 
 model Store {
@@ -76,18 +77,44 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   name        String
   slug        String
   description String?
   price       Decimal
   images      Json
   storeId     String
-  Store       Store    @relation(fields: [storeId], references: [id])
+  Store       Store       @relation(fields: [storeId], references: [id])
   categoryId  String
-  Category    Category @relation(fields: [categoryId], references: [slug])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  Category    Category    @relation(fields: [categoryId], references: [slug])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
 
   @@index([storeId, categoryId, name, slug])
+}
+
+model Order {
+  id                String      @id
+  token             String
+  transactionStatus String
+  userId            String
+  User              User        @relation(fields: [userId], references: [id])
+  midtransResponse  Json?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  orderItems        OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
 }

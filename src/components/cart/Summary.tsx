@@ -1,15 +1,21 @@
 'use client'
 
 import axios from 'axios'
-import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { Button } from '@/components/ui/Button'
 import useCart from '@/hooks/useCart'
 import { formatPrice } from '@/lib/utils'
+import { useSession } from 'next-auth/react'
 
 const Summary = () => {
+  const [token, setToken] = useState<string>('')
+
+  const session = useSession()
+  const router = useRouter()
+
   const searchParams = useSearchParams()
   const items = useCart((state) => state.items)
   const removeAll = useCart((state) => state.removeAll)
@@ -30,15 +36,56 @@ const Summary = () => {
   }, 0)
 
   const onCheckout = async () => {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-      {
-        productIds: items.map((item) => item.id),
-      },
-    )
+    if (!session.data?.user) {
+      return router.push('/sign-in')
+    }
 
-    window.location = response.data.url
+    try {
+      const productIds = items.map((item) => item.id)
+      const { data } = await axios.post('/api/payments/charge', { productIds })
+
+      setToken(data.token)
+    } catch (error: any) {
+      toast.error(error.response.data)
+    }
   }
+
+  useEffect(() => {
+    if (token) {
+      // @ts-expect-error
+      window.snap.pay(token, {
+        onSuccess: (result: any) => {
+          toast.success('Payment success!')
+          console.log(result)
+        },
+        onPending: (result: any) => {
+          toast('Waiting your payment..')
+          console.log(result)
+        },
+        onError: (result: any) => {
+          console.log(result)
+          toast.error('Payment failed, something went wrong')
+        },
+        onClose: () => {
+          toast.error('You have not completed the payment.')
+        },
+      })
+    }
+  }, [token])
+
+  useEffect(() => {
+    const midtransUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'
+
+    let scriptTag = document.createElement('script')
+    scriptTag.src = midtransUrl
+    scriptTag.setAttribute('data-client-key', process.env.MIDTRANS_CLIENT_KEY!)
+
+    document.body.appendChild(scriptTag)
+
+    return () => {
+      document.body.removeChild(scriptTag)
+    }
+  }, [])
 
   return (
     <div

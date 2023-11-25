@@ -1,9 +1,14 @@
 import { z } from 'zod'
 
 export const productSchema = z.object({
-  name: z.string().min(3, {
-    message: 'Name must contain at least 3 character(s)',
-  }),
+  name: z
+    .string()
+    .min(3, {
+      message: 'Name must contain at least 3 character(s)',
+    })
+    .max(50, {
+      message: 'Name must contain at most 50 character(s)',
+    }),
   description: z.string().optional(),
   category: z.string().min(1),
   price: z.coerce
