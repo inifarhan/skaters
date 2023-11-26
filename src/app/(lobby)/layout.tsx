@@ -12,7 +12,7 @@ export default async function LobbyLayout({
   return (
     <div>
       <Navbar user={session?.user} />
-      <div className='max-w-7xl mx-auto'>{children}</div>
+      <div>{children}</div>
       <Footer />
     </div>
   )
