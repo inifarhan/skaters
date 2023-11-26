@@ -54,12 +54,12 @@ const Products = async ({
   const categories = await prisma.category.findMany()
 
   return (
-    <div className='flex flex-col py-10 px-4 sm:px-6 lg:px-8'>
+    <div className='flex flex-col py-6 sm:py-10 px-4 sm:px-6 lg:px-8'>
       <Heading
         title={`Products (${totalProducts})`}
         description='Explore all products from around the world'
       />
-      <Filter categories={categories} className='pt-10 pb-6' />
+      <Filter categories={categories} className='mt-8 sm:mt-10 mb-4 sm:mb-6' />
       <ProductsList initialProducts={products} totalData={totalProducts} />
     </div>
   )
