@@ -17,13 +17,11 @@ const ProductDetails = async ({
   })
 
   return (
-    <div className='p-4 sm:py-10 sm:px-6 lg:px-8'>
-      <div className='lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8'>
+    <div className='p-4 sm:p-6 lg:px-8'>
+      <div className='grid grid-cols-1 gap-y-6 lg:grid-cols-2 lg:items-start lg:gap-x-8'>
         {/* @ts-expect-error */}
         <Gallery images={product?.images} />
-        <div className='mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0'>
-          <Info product={product!} />
-        </div>
+        <Info product={product!} />
       </div>
     </div>
   )
