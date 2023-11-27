@@ -42,7 +42,7 @@ const Filter: React.FC<FilterProps> = ({ categories, className, ...props }) => {
         </SheetTrigger>
         <SheetContent side='right'>
           <div className='px-2 flex flex-col gap-4'>
-            <h3 className='text-lg font-semibold'>Categories</h3>
+            <h3 className='text-lg text-emerald-600 font-semibold'>Categories</h3>
             <Separator />
             <div className='flex flex-wrap gap-2'>
               {categories.map((category) => (
