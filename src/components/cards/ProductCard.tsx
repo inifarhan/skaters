@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   }
 
   return (
-    <div className='shadow-lg border group hover:-translate-y-1 hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4 h-full'>
+    <div className='group/card shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4 h-full'>
       <Link
         href={`/${product.storeId}/${product.slug}?productId=${product.id}`}
       >
@@ -41,31 +41,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.name}
             className='aspect-square object-cover rounded-2xl'
           />
-          <div className='hidden group-hover:block transition absolute w-full px-6 bottom-5'>
-            <div className='flex justify-center'>
-              <IconButton
-                onClick={onAddToCart}
-                icon={<ShoppingCart size={20} className='text-gray-600' />}
-              />
-            </div>
-          </div>
         </div>
-        <div className='px-4 space-y-4 pb-6'>
-          {/* Descrription */}
+        <div className='px-4 space-y-3 pb-6'>
           <div className='space-y-1'>
+            {/* Product Name */}
+            <p className='text-sm text-gray-500'>{product.Category?.name}</p>
             <p
-              className='font-semibold text-lg line-clamp-2'
+              className='font-semibold group-hover/card:text-emerald-800 text-lg truncate'
               title={product.name}
             >
               {product.name}
             </p>
-            <p className='text-sm text-gray-500'>{product.Category?.name}</p>
+            <Image alt='Stars' src='/svg/stars.svg' width={100} height={100} />
           </div>
-          {/* Price */}
           <div className='flex items-center justify-between'>
-            <div className='font-semibold'>
+            {/* Price */}
+            <div className='font-semibold text-emerald-600'>
               {/* @ts-expect-error */}
               {formatPrice(parseFloat(product.price))}
+            </div>
+            <div className='flex justify-center group/icon'>
+              <IconButton
+                className='bg-emerald-50 group-hover/icon:bg-emerald-500'
+                onClick={onAddToCart}
+                icon={
+                  <ShoppingCart
+                    size={20}
+                    className='text-emerald-600 group-hover/icon:text-emerald-50'
+                  />
+                }
+              />
             </div>
           </div>
         </div>
