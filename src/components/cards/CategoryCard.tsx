@@ -25,7 +25,7 @@ const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
   return (
     <Link href={`/products?category=${category.slug}`}>
       <span className='sr-only'>{category.name}</span>
-      <Card className='relative h-full w-full overflow-hidden rounded-lg bg-transparent transition-colors hover:bg-muted/50'>
+      <Card className='relative h-full w-full overflow-hidden rounded-lg bg-transparent transition-colors group hover:bg-emerald-600'>
         <CardHeader>
           <Image
             src={`/svg/${category.slug}.svg`}
@@ -38,7 +38,9 @@ const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
           <CardTitle className='capitalize text-zinc-200'>
             {category.name}
           </CardTitle>
-          <CardDescription>{products} Products</CardDescription>
+          <CardDescription className='group-hover:text-white'>
+            {products} Products
+          </CardDescription>
         </CardContent>
       </Card>
     </Link>
