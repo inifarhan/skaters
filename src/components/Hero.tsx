@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 
 import GithubStars from '@/components/GithubStars'
-import { GithubStarsSkeleton } from '@/components/skeletons/GithubStarsSkeleton'
+import GithubStarsSkeleton from '@/components/skeletons/GithubStarsSkeleton'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 

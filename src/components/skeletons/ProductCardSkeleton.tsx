@@ -2,7 +2,7 @@ import { AspectRatio } from '@/components/ui/AspectRatio'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/Card'
 import { Skeleton } from '@/components/ui/Skeleton'
 
-export function ProductCardSkeleton() {
+const ProductCardSkeleton = () => {
   return (
     <Card className='h-full overflow-hidden rounded-2xl'>
       <CardHeader className='p-0'>
@@ -20,3 +20,5 @@ export function ProductCardSkeleton() {
     </Card>
   )
 }
+
+export default ProductCardSkeleton
