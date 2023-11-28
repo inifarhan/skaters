@@ -8,8 +8,8 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import ProductCard from '@/components/cards/ProductCard'
+import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton'
 import { INFINITE_SCROLL_LIMIT } from '@/config'
-import { ProductCardSkeleton } from '@/components/skeletons/ProductCardSkeleton'
 
 interface ProductsListProps {
   initialProducts: Product[]
