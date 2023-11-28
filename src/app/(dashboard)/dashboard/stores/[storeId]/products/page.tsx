@@ -33,7 +33,7 @@ export default async function ProductsPage({
 
   return (
     <div>
-      <DataTable columns={columns} data={formattedData} />
+      <DataTable searchKey='name' columns={columns} data={formattedData} />
     </div>
   )
 }
