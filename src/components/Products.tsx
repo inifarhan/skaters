@@ -1,22 +1,13 @@
 import { ArrowRight, ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
-import ProductCard from '@/components/cards/ProductCard'
+import PopularProducts from '@/components/PopularProducts'
+import PopularProductsSkeleton from '@/components/skeletons/PopularProductsSkeleton'
 import { buttonVariants } from '@/components/ui/Button'
-import prisma from '@/lib/db'
 import { cn } from '@/lib/utils'
 
 const Products = async () => {
-  const products = await prisma.product.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      Category: true,
-    },
-    take: 8,
-  })
-
   return (
     <section
       id='products'
@@ -39,11 +30,9 @@ const Products = async () => {
           Shop the collection <ArrowRight />
         </a>
       </div>
-      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <Suspense fallback={<PopularProductsSkeleton />}>
+        <PopularProducts />
+      </Suspense>
       <Link
         href='/products'
         className={cn(
