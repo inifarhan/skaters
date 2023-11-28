@@ -17,6 +17,9 @@ export const productSchema = z.object({
     })
     .min(1000, {
       message: 'Price must be greater than or equal to Rp 1.000',
+    })
+    .max(100000000, {
+      message: 'Price must be lower than or equal to Rp 100.000.000',
     }),
   images: z
     .object({
