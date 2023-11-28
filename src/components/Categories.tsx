@@ -1,7 +1,9 @@
 import { Category } from '@prisma/client'
 import { ArrowRight } from 'lucide-react'
+import { Suspense } from 'react'
 
 import CategoryCard from '@/components/cards/CategoryCard'
+import CategoryCardSkeleton from '@/components/skeletons/CategoryCardSkeleton'
 
 const Categories = async () => {
   const categories: Category[] = [
@@ -47,7 +49,9 @@ const Categories = async () => {
       </div>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {categories.map((category) => (
-          <CategoryCard key={category.slug} category={category} />
+          <Suspense key={category.slug} fallback={<CategoryCardSkeleton />}>
+            <CategoryCard category={category} />
+          </Suspense>
         ))}
       </div>
     </section>
