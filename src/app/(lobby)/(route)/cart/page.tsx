@@ -6,6 +6,7 @@ import useCart from '@/hooks/useCart'
 
 import CartItem from '@/components/cart/CartItem'
 import Summary from '@/components/cart/Summary'
+import CartSkeleton from '@/components/skeletons/CartSkeleton'
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -17,10 +18,11 @@ const CartPage = () => {
   }, [])
 
   if (!isMounted) {
-    return null
+    return <CartSkeleton />
   }
+
   return (
-    <div className='px-4 xl:px-0 py-16'>
+    <div className='px-4 sm:px-6 lg:px-8 py-16'>
       <h1 className='text-3xl font-bold text-black'>Shopping Cart</h1>
       <div className='mt-12 lg:grid lg:grid-cols-12 lg:items-start gap-x-12'>
         <div className='lg:col-span-7'>
