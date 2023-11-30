@@ -1,4 +1,4 @@
-import Footer from '@/components/Footer'
+import Footer from '@/components/layouts/Footer'
 import Navbar from '@/components/layouts/Navbar'
 import { SidebarNav } from '@/components/layouts/SidebarNav'
 import { getAuthSession } from '@/lib/auth'
