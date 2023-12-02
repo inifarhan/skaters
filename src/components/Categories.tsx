@@ -1,30 +1,11 @@
-import { Category } from '@prisma/client'
 import { ArrowRight } from 'lucide-react'
 import { Suspense } from 'react'
 
 import CategoryCard from '@/components/cards/CategoryCard'
 import CategoryCardSkeleton from '@/components/skeletons/CategoryCardSkeleton'
+import { categories } from '@/config'
 
 const Categories = async () => {
-  const categories: Category[] = [
-    {
-      name: 'Skateboards',
-      slug: 'skateboards',
-    },
-    {
-      name: 'Clothing',
-      slug: 'clothing',
-    },
-    {
-      name: 'Shoes',
-      slug: 'shoes',
-    },
-    {
-      name: 'Accessories',
-      slug: 'accessories',
-    },
-  ]
-
   return (
     <section
       id='categories'

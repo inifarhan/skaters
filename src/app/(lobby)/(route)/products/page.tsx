@@ -1,7 +1,7 @@
 import Filter from '@/components/Filter'
 import { Heading } from '@/components/Heading'
 import ProductsList from '@/components/ProductsList'
-import { INFINITE_SCROLL_LIMIT } from '@/config'
+import { INFINITE_SCROLL_LIMIT, categories } from '@/config'
 import prisma from '@/lib/db'
 
 const Products = async ({
@@ -50,8 +50,6 @@ const Products = async ({
     products = productsWithoutCategory
     totalProducts = totalProductsWithoutCategory
   }
-
-  const categories = await prisma.category.findMany()
 
   return (
     <div className='flex flex-col py-6 sm:py-10 px-4 sm:px-6 lg:px-8'>
