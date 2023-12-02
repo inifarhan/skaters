@@ -1,6 +1,7 @@
 'use client'
 
-import axios from 'axios'
+import { useMutation } from '@tanstack/react-query'
+import axios, { AxiosError } from 'axios'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -12,58 +13,58 @@ import { useSession } from 'next-auth/react'
 
 const Summary = () => {
   const [token, setToken] = useState<string>('')
-
   const session = useSession()
   const router = useRouter()
-
+  const cart = useCart()
   const searchParams = useSearchParams()
-  const items = useCart((state) => state.items)
-  const removeAll = useCart((state) => state.removeAll)
 
   useEffect(() => {
-    if (searchParams.get('success')) {
+    if (searchParams.get('status_code') == '200') {
       toast.success('Payment completed.')
-      removeAll()
+    } else if (searchParams.get('status_code') == '201') {
+      toast('Waiting your payment..')
+    } else if (searchParams.get('status_code')) {
+      toast.error('Payment failed, something went wrong')
     }
+  }, [searchParams])
 
-    if (searchParams.get('canceled')) {
-      toast.error('Something went wrong.')
-    }
-  }, [searchParams, removeAll])
-
-  const totalPrice = items.reduce((total, item) => {
+  const totalPrice = cart.items.reduce((total, item) => {
     return total + Number(item.price)
   }, 0)
 
-  const onCheckout = async () => {
-    if (!session.data?.user) {
-      return router.push('/sign-in')
-    }
+  const { mutate: onCheckout, isPending } = useMutation({
+    mutationFn: async () => {
+      if (!session.data?.user) {
+        return router.push('/sign-in')
+      }
 
-    try {
-      const productIds = items.map((item) => item.id)
+      const productIds = cart.items.map((item) => item.id)
       const { data } = await axios.post('/api/payments/charge', { productIds })
 
+      return data
+    },
+    onError(error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data)
+      }
+    },
+    onSuccess(data) {
       setToken(data.token)
-    } catch (error: any) {
-      toast.error(error.response.data)
-    }
-  }
+      cart.removeAll()
+    },
+  })
 
   useEffect(() => {
     if (token) {
       // @ts-expect-error
       window.snap.pay(token, {
-        onSuccess: (result: any) => {
+        onSuccess: () => {
           toast.success('Payment success!')
-          console.log(result)
         },
-        onPending: (result: any) => {
+        onPending: () => {
           toast('Waiting your payment..')
-          console.log(result)
         },
-        onError: (result: any) => {
-          console.log(result)
+        onError: () => {
           toast.error('Payment failed, something went wrong')
         },
         onClose: () => {
@@ -108,9 +109,10 @@ const Summary = () => {
           {formatPrice(totalPrice)}
         </div>
         <Button
-          disabled={items.length === 0}
-          onClick={onCheckout}
-          className='w-full mt-6'
+          disabled={cart.items.length === 0 || isPending}
+          isLoading={isPending}
+          onClick={() => onCheckout()}
+          className='w-full mt-6 hover:before:-translate-x-[500px]'
         >
           Checkout
         </Button>
