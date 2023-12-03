@@ -2,7 +2,7 @@
 
 This is an open source e-commerce project build by [Inifarhan](https://github.com/inifarhan) with everything new in Next.js 14.
 
-[![Skaters](https://i.postimg.cc/T372p1wv/screenshoot.png)](https://skaters-inifarhan.vercel.app/)
+[![Skaters](./public/images/screenshoot.PNG)](https://skaters-inifarhan.vercel.app/)
 
 > **Warning**
 > This project is still in development and is not ready for production use.
