@@ -2,7 +2,6 @@
 
 import { Product, Store } from '@prisma/client'
 import { ShoppingCart } from 'lucide-react'
-import Link from 'next/link'
 import { MouseEventHandler } from 'react'
 
 import { Button } from '@/components/ui/Button'
@@ -33,11 +32,9 @@ const Info: React.FC<InfoProps> = ({ product }) => {
           {formatPrice(parseFloat(product.price))}
         </p>
       </div>
-      <Link href='/'>
-        <p className='my-2 text-muted-foreground hover:underline underline-offset-2'>
+        <p className='my-2 text-muted-foreground'>
           {product.Store.name}
         </p>
-      </Link>
       <hr className='my-4' />
       <div className='flex flex-col gap-y-6'>
         <h3 className='font-medium'>Description :</h3>
