@@ -29,13 +29,13 @@ Check the [roadmap](https://inifarhan.notion.site/972df2ba233849f692d0bcce51934d
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/sadmann7/skateshop.git
+   git clone https://github.com/inifarhan/skaters.git
    ```
 
-2. Install dependencies using pnpm
+2. Install dependencies using npm
 
    ```bash
-   pnpm install
+   npm install
    ```
 
 3. Copy the `.env.example` to `.env` and update the variables.
@@ -44,27 +44,51 @@ Check the [roadmap](https://inifarhan.notion.site/972df2ba233849f692d0bcce51934d
    cp .env.example .env
    ```
 
-4. Start the development server
+4. Configure your .env file with your secret
 
    ```bash
-   pnpm run dev
+   GOOGLE_CLIENT_ID=
+   GOOGLE_CLIENT_SECRET=
+   
+   NEXT_AUTH_SECRET=
+   
+   UPLOADTHING_SECRET=
+   UPLOADTHING_APP_ID=
+   
+   MIDTRANS_CLIENT_KEY=
+   MIDTRANS_SERVER_KEY=
+   
+   DATABASE_URL=
    ```
 
-5. Push the database schema
+5. Generate prisma client
 
    ```bash
-   pnpm run db:push
+   npx prisma generate
    ```
 
-6. Start the Stripe webhook listener
+6. Push the database schema
 
    ```bash
-   pnpm run stripe:listen
+   npx prisma db push
    ```
 
-## How do I deploy this?
+7. Seeding the categories data
 
-Follow the deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+   ```bash
+   npx prisma db seed
+   ```
+
+8. Start the development server
+
+   ```bash
+   npm run dev
+   ```
+
+## Where do I deploy this?
+
+- For the Nextjs application, I deploy it on [Vercel](https://vercel.com/)
+- And for the MySQL database I deploy it on [Aiven](https://aiven.io/)
 
 ## Contributing
 
@@ -76,7 +100,7 @@ Thanks goes to these wonderful people for their contributions:
 
 <p align="center">
  <a href="https://github.com/sadmann7/skateshop/graphs/contributors">
-   <img src="https://contrib.rocks/image?repo=sadmann7/skateshop" />
+   <img src="https://contrib.rocks/image?repo=inifarhan/skaters" />
  </a>
 </p>
 
