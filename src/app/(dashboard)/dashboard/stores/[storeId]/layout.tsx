@@ -3,8 +3,9 @@ import { redirect } from 'next/navigation'
 import { Heading } from '@/components/Heading'
 import { StoreTabs } from '@/components/pagers/StoreTabs'
 import { getAuthSession } from '@/lib/auth'
+import prisma from '@/lib/db'
 
-export default async function DashboardLayout({
+export default async function UpdateStoreLayout({
   children,
   params: { storeId },
 }: {

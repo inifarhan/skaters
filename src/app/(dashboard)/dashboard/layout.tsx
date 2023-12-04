@@ -1,8 +1,9 @@
+import { redirect } from 'next/navigation'
+
 import Footer from '@/components/layouts/Footer'
 import Navbar from '@/components/layouts/Navbar'
 import { SidebarNav } from '@/components/layouts/SidebarNav'
 import { getAuthSession } from '@/lib/auth'
-import { redirect } from 'next/navigation'
 
 export default async function DashboardLayout({
   children,
