@@ -7,6 +7,7 @@ import { MouseEventHandler } from 'react'
 import { Button } from '@/components/ui/Button'
 import useCart from '@/hooks/useCart'
 import { formatPrice } from '@/lib/utils'
+import { Separator } from '@/components/ui/Separator'
 
 interface InfoProps {
   product: Product & {
@@ -35,7 +36,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
         <p className='my-2 text-muted-foreground'>
           {product.Store.name}
         </p>
-      <hr className='my-4' />
+      <Separator className='my-4' />
       <div className='flex flex-col gap-y-6'>
         <h3 className='font-medium'>Description :</h3>
         {product.description ? (
