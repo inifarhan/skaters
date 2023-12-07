@@ -55,7 +55,7 @@ export function UpdateProductForm({ product }: { product: Product }) {
         values,
       )
       toast.success('Product has been updated.')
-      window.location.assign(`/dashboard/stores/${params.storeId}/products`)
+      window.location.assign(`/dashboard/stores/${params.storeId}`)
     } catch (error: any) {
       toast.error(error.response.data)
     } finally {
