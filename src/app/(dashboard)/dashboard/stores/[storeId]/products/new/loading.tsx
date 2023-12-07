@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Skeleton } from '@/components/ui/Skeleton'
 
-export default function UpdateProductFormLoading() {
+export default function AddNewProductFormLoading() {
   return (
     <Card>
       <CardHeader className='space-y-2'>
