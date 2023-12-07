@@ -62,6 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
             <div className='flex justify-center group/icon'>
               <IconButton
+                aria-label='add-to-cart'
                 className='bg-emerald-50 group-hover/icon:bg-emerald-500'
                 onClick={onAddToCart}
                 icon={

@@ -27,6 +27,7 @@ const CartButton = () => {
       size='sm'
       className='gap-x-1'
       variant='outline'
+      aria-label={`${cart.items.length}-items-in-cart`}
     >
       <ShoppingCart className='w-4 h-4' />
       {cart.items.length}

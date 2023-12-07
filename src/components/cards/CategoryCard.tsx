@@ -24,7 +24,6 @@ const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
 
   return (
     <Link href={`/products?category=${category.slug}`}>
-      <span className='sr-only'>{category.name}</span>
       <Card className='relative h-full w-full overflow-hidden rounded-lg bg-transparent transition-colors group hover:bg-emerald-600'>
         <CardHeader>
           <Image

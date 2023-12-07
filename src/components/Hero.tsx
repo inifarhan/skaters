@@ -37,7 +37,6 @@ const Hero = async () => {
           <div className='flex flex-wrap items-center gap-4'>
             <a href='/products' className={cn(buttonVariants())}>
               Buy now
-              <span className='sr-only'>Buy now</span>
             </a>
             <Link
               href='/dashboard/stores'
@@ -48,7 +47,6 @@ const Hero = async () => {
               )}
             >
               Sell now
-              <span className='sr-only'>Sell now</span>
             </Link>
           </div>
         </div>
