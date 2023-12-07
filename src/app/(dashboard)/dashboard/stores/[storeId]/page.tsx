@@ -1,46 +1,39 @@
-import { redirect } from 'next/navigation'
-
-import { UpdateStoreForm } from '@/components/forms/UpdateStoreForm'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card'
-import { getAuthSession } from '@/lib/auth'
+import { DataTable } from '@/components/ui/DataTable'
 import prisma from '@/lib/db'
+import { formatPrice } from '@/lib/utils'
+import { ProductColumn, columns } from './components/columns'
 
-const UpdateStorePage = async ({
-  params: { storeId },
+export default async function ProductsPage({
+  params,
 }: {
   params: { storeId: string }
-}) => {
-  const session = await getAuthSession()
-
-  const store = await prisma.store.findFirst({
+}) {
+  const data = await prisma.product.findMany({
     where: {
-      id: storeId,
-      userId: session?.user.id,
+      storeId: params.storeId,
+    },
+    include: {
+      Category: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
   })
 
-  if (!store) {
-    return redirect('/dashboard/stores')
-  }
+  const formattedData: ProductColumn[] = data.map((item) => ({
+    id: item.id,
+    // @ts-expect-error
+    price: formatPrice(parseFloat(item.price)),
+    name: item.name,
+    slug: item.slug,
+    storeId: item.storeId,
+    category: item.Category.name,
+    createdAt: item.createdAt,
+  }))
+
   return (
-    <Card aria-labelledby='update-store-page-form-heading'>
-      <CardHeader className='space-y-1'>
-        <CardTitle className='text-2xl'>Update your store</CardTitle>
-        <CardDescription>
-          Update your store name and description, or delete it
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <UpdateStoreForm store={store!} />
-      </CardContent>
-    </Card>
+    <div>
+      <DataTable searchKey='name' columns={columns} data={formattedData} />
+    </div>
   )
 }
-
-export default UpdateStorePage

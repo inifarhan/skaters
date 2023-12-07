@@ -16,14 +16,14 @@ export function StoreTabs({ storeId }: StoreTabsProps) {
 
   const tabs = [
     {
-      title: 'Store',
+      title: 'Products',
       href: `/dashboard/stores/${storeId}`,
       isActive: segment === null,
     },
     {
-      title: 'Products',
-      href: `/dashboard/stores/${storeId}/products`,
-      isActive: segment === 'products',
+      title: 'Settings',
+      href: `/dashboard/stores/${storeId}/settings`,
+      isActive: segment === 'settings',
     },
   ]
 

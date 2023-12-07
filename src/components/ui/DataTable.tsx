@@ -66,7 +66,7 @@ export function DataTable<TData, TValue>({
         />
         <Link
           aria-label='Create new row'
-          href={`/dashboard/stores/${params.storeId}/products/new`}
+          href={`/dashboard/stores/${params.storeId}/new`}
         >
           <div
             className={cn(

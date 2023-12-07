@@ -1,29 +1,46 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Skeleton } from '@/components/ui/Skeleton'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/Table'
 
-export default function StoreLoading() {
+export default function DataTable() {
   return (
-    <Card>
-      <CardHeader className='space-y-2'>
-        <Skeleton className='h-6 w-1/4' />
-        <Skeleton className='h-4 w-2/4' />
-      </CardHeader>
-      <CardContent>
-        <div className='grid w-full max-w-xl gap-5'>
-          <div className='space-y-2.5'>
-            <Skeleton className='h-4 w-32' />
-            <Skeleton className='h-6' />
-          </div>
-          <div className='space-y-2.5'>
-            <Skeleton className='h-4 w-32' />
-            <Skeleton className='h-20' />
-          </div>
-          <div className='flex flex-col gap-2 xl:flex-row'>
-            <Skeleton className='h-10 w-full xl:w-32' />
-            <Skeleton className='h-10 w-full xl:w-32' />
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    <>
+      <div className='flex items-center justify-between gap-2 px-1'>
+        <Skeleton className='w-96 h-9 max-w-sm' />
+        <Skeleton className='h-9 w-20 rounded-full' />
+      </div>
+      <div className='rounded-md border'>
+        <Table className='min-w-[640px]'>
+          <TableHeader>
+            {Array.from({ length: 1 }).map((_, i) => (
+              <TableRow key={i} className='hover:bg-transparent'>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <TableHead key={i}>
+                    <Skeleton className='h-6 w-full' />
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <TableRow key={i} className='hover:bg-transparent'>
+                {Array.from({ length: 4 }).map((_, j) => (
+                  <TableCell key={j}>
+                    <Skeleton className='h-6 w-full' />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
   )
 }
