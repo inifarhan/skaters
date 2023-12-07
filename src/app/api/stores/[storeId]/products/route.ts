@@ -41,7 +41,7 @@ export async function POST(
       )
     }
 
-    await prisma.product.create({
+    const product = await prisma.product.create({
       data: {
         name,
         description,
@@ -53,7 +53,7 @@ export async function POST(
       },
     })
 
-    return new Response('OK')
+    return Response.json(product)
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response('Invalid request data passed', { status: 422 })
