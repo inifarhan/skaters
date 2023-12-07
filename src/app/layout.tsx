@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     description: 'An open source e-commerce project built by inifarhan',
     url: 'https://skaters-inifarhan.vercel.app/',
     siteName: 'Skaters',
-    images: '/images/screenshoot.PNG',
+    images: 'https://skaters-inifarhan.vercel.app/images/screenshoot.PNG',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Skaters',
     description: 'An open source e-commerce project built by inifarhan',
-    images: ['/images/screenshoot.PNG'],
+    images: ['https://skaters-inifarhan.vercel.app/images/screenshoot.PNG'],
   },
 }
 
