@@ -1,14 +1,17 @@
-import Link from 'next/link'
 import { Store } from '@prisma/client'
+import Link from 'next/link'
 
 import { AspectRatio } from '@/components/ui/AspectRatio'
+import { buttonVariants } from '@/components/ui/Button'
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card'
 import { getRandomPatternStyle } from '@/lib/generate-pattern'
+import { cn } from '@/lib/utils'
 
 interface StoreCardProps {
   store: Store
@@ -31,6 +34,17 @@ export function StoreCard({ store }: StoreCardProps) {
             {store.description}
           </CardDescription>
         </CardHeader>
+        <CardContent>
+          <p
+            className={cn(
+              buttonVariants({
+                className: 'w-full rounded-lg',
+              }),
+            )}
+          >
+            Add Product
+          </p>
+        </CardContent>
       </Card>
       <span className='sr-only'>{store.name}</span>
     </Link>
