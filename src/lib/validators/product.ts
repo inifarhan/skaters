@@ -9,7 +9,12 @@ export const productSchema = z.object({
     .max(50, {
       message: 'Name must contain at most 50 character(s)',
     }),
-  description: z.string().optional(),
+  description: z
+    .string()
+    .max(500, {
+      message: 'Description must contain at most 500 character(s)',
+    })
+    .optional(),
   category: z.string().min(1),
   price: z.coerce
     .number({
