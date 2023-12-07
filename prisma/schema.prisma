@@ -60,7 +60,7 @@ model User {
 model Store {
   id          String    @id
   name        String
-  description String?
+  description String?   @db.Text
   userId      String
   User        User      @relation(fields: [userId], references: [id])
   createdAt   DateTime  @default(now())
@@ -80,7 +80,7 @@ model Product {
   id          String      @id @default(uuid())
   name        String
   slug        String
-  description String?
+  description String?     @db.Text
   price       Decimal
   images      Json
   storeId     String
