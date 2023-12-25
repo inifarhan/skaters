@@ -26,6 +26,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
           <Tab.Panel key={image.name}>
             <div className='aspect-square relative h-full w-full rounded-lg overflow-hidden'>
               <Image
+                priority
                 fill
                 src={image.url}
                 alt='Image'
