@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 const Hero = async () => {
   return (
-    <div className='relative'>
+    <section className='relative'>
       <svg
         className='absolute -z-10'
         xmlns='http://www.w3.org/2000/svg'
@@ -52,6 +52,7 @@ const Hero = async () => {
         </div>
         <div className='flex items-center justify-center md:justify-end'>
           <Image
+            priority
             src='/images/hero.webp'
             className='rounded-full'
             alt='Hero image'
@@ -60,7 +61,7 @@ const Hero = async () => {
           />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -34,7 +34,7 @@ const CategoryCard: React.FC<CategoryCardProps> = async ({ category }) => {
           />
         </CardHeader>
         <CardContent className='space-y-1.5'>
-          <CardTitle className='capitalize text-zinc-200'>
+          <CardTitle className='capitalize text-emerald-600 group-hover:text-white'>
             {category.name}
           </CardTitle>
           <CardDescription className='group-hover:text-white'>

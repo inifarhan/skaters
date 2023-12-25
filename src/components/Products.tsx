@@ -37,12 +37,11 @@ const Products = async () => {
         href='/products'
         className={cn(
           buttonVariants(),
-          'mx-auto flex w-fit hover:before:-translate-x-48',
+          'mx-auto bg-emerald-700 flex w-fit hover:before:-translate-x-48',
         )}
       >
         View all products
         <ArrowRightIcon className='ml-2 h-4 w-4' aria-hidden='true' />
-        <span className='sr-only'>View all products</span>
       </Link>
     </section>
   )
