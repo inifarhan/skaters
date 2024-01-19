@@ -1,10 +1,16 @@
 'use client'
 
-import { LayoutDashboard, LogOut, User as UserIcon } from 'lucide-react'
+import {
+  LayoutDashboard,
+  LogOut,
+  ShoppingBag,
+  User as UserIcon,
+} from 'lucide-react'
+import { type User } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import { User } from 'next-auth'
 import Link from 'next/link'
-import { FC } from 'react'
+
+import UserAvatar from '@/components/auth/UserAvatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,14 +18,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/DropdownMenu'
-import UserAvatar from './UserAvatar'
+} from '@/components/ui/DropdownMenu'
 
 interface UserAccountNavProps {
   user: Pick<User, 'name' | 'image' | 'email'>
 }
 
-const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
+const UserAccountNav: React.FC<UserAccountNavProps> = ({ user }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='outline-none'>
@@ -51,6 +56,12 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
             <Link href='/dashboard/account'>
               <UserIcon className='mr-2 h-4 w-4' aria-hidden='true' />
               Account
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href='/dashboard/orders'>
+              <ShoppingBag className='mr-2 h-4 w-4' aria-hidden='true' />
+              Orders
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>

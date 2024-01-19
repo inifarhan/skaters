@@ -49,6 +49,12 @@ const MobileNav = () => {
                     <div className='flex flex-col gap-y-2 text-muted-foreground'>
                       <Link
                         onClick={() => setIsOpen(false)}
+                        href='/dashboard/orders'
+                      >
+                        Orders
+                      </Link>
+                      <Link
+                        onClick={() => setIsOpen(false)}
                         href='/dashboard/stores'
                       >
                         Stores
