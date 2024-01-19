@@ -46,7 +46,7 @@ Check the [roadmap](https://inifarhan.notion.site/972df2ba233849f692d0bcce51934d
 
 4. Configure your .env file with your secret
 
-   ```bash
+   ```env
    NEXT_PUBLIC_APP_URL="http://localhost:3000"
    
    GOOGLE_CLIENT_ID=
