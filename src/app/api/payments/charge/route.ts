@@ -1,6 +1,6 @@
 const midtransClient = require('midtrans-client')
 import { z } from 'zod'
-import { randomUUID } from 'crypto'
+import { nanoid } from 'nanoid'
 
 import { getAuthSession } from '@/lib/auth'
 import prisma from '@/lib/db'
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       return total + Number(item.price)
     }, 0)
 
-    const uuid = randomUUID()
+    const order_id = `TRX-${nanoid(4)}-${nanoid(8)}`
 
     let snap = new midtransClient.Snap({
       isProduction: false,
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
     let parameter = {
       transaction_details: {
-        order_id: uuid,
+        order_id,
         gross_amount,
       },
       credit_card: {
@@ -62,21 +62,32 @@ export async function POST(req: Request) {
         first_name: session.user.name,
         email: session.user.email,
       },
+      callbacks: {
+        finish: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/orders`,
+        error: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/orders`,
+        pending: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/orders`,
+      },
     }
 
     const transaction = await snap.createTransaction(parameter)
 
     await prisma.order.create({
       data: {
-        id: uuid,
+        id: order_id,
         userId: session?.user.id,
-        transactionStatus: 'pending',
+        totalPrice: gross_amount,
+        status: 'PENDING',
         token: transaction.token,
         orderItems: {
-          create: productIds.map((productId: string) => ({
+          create: products.map((product) => ({
             product: {
               connect: {
-                id: productId,
+                id: product.id,
+              },
+            },
+            store: {
+              connect: {
+                id: product.storeId,
               },
             },
           })),

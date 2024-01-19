@@ -2,31 +2,20 @@
 
 import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { Button } from '@/components/ui/Button'
 import useCart from '@/hooks/useCart'
 import { formatPrice } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
 
 const Summary = () => {
   const [token, setToken] = useState<string>('')
   const session = useSession()
   const router = useRouter()
   const cart = useCart()
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    if (searchParams.get('status_code') == '200') {
-      toast.success('Payment completed.')
-    } else if (searchParams.get('status_code') == '201') {
-      toast('Waiting your payment..')
-    } else if (searchParams.get('status_code')) {
-      toast.error('Payment failed, something went wrong')
-    }
-  }, [searchParams])
 
   const totalPrice = cart.items.reduce((total, item) => {
     return total + Number(item.price)
@@ -59,20 +48,23 @@ const Summary = () => {
       // @ts-expect-error
       window.snap.pay(token, {
         onSuccess: () => {
+          router.push('/dashboard/orders')
           toast.success('Payment success!')
         },
         onPending: () => {
+          router.push('/dashboard/orders')
           toast('Waiting your payment..')
         },
         onError: () => {
           toast.error('Payment failed, something went wrong')
         },
         onClose: () => {
+          window.location.assign('/dashboard/orders')
           toast.error('You have not completed the payment.')
         },
       })
     }
-  }, [token])
+  }, [token, router])
 
   useEffect(() => {
     const midtransUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'

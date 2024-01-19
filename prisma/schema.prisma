@@ -58,14 +58,15 @@ model User {
 }
 
 model Store {
-  id          String    @id
+  id          String      @id
   name        String
-  description String?   @db.Text
+  description String?     @db.Text
   userId      String
-  User        User      @relation(fields: [userId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  User        User        @relation(fields: [userId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   Product     Product[]
+  OrderItem   OrderItem[]
 
   @@index([userId])
 }
@@ -94,16 +95,22 @@ model Product {
   @@index([storeId, categoryId, name, slug])
 }
 
+enum TRANSACTION_STATUS {
+  PENDING
+  PAID
+  CANCELED
+}
+
 model Order {
-  id                String      @id
-  token             String
-  transactionStatus String
-  userId            String
-  User              User        @relation(fields: [userId], references: [id])
-  midtransResponse  Json?
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  orderItems        OrderItem[]
+  id               String             @id
+  totalPrice       Decimal
+  token            String
+  status           TRANSACTION_STATUS
+  userId           String
+  User             User               @relation(fields: [userId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  orderItems       OrderItem[]
 
   @@index([userId])
 }
@@ -114,6 +121,8 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id])
   productId String
   product   Product @relation(fields: [productId], references: [id])
+  storeId   String
+  store     Store   @relation(fields: [storeId], references: [id])
 
   @@index([orderId])
   @@index([productId])
