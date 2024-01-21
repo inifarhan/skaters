@@ -1,6 +1,6 @@
 'use client'
 
-import { Order, OrderItem, Product, Store } from '@prisma/client'
+import { Order } from '@prisma/client'
 import { ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 
 import getOrderItems from '@/actions/get-order-items'
 import { OrderAction } from '@/components/actions/OrderAction'
+import OrderItemSkeleton from '@/components/skeletons/OrderItemSkeleton'
 import { Badge } from '@/components/ui/Badge'
 import { Separator } from '@/components/ui/Separator'
 import { formatPrice } from '@/lib/utils'
@@ -97,7 +98,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
               ))}
             </>
           ) : (
-            <h1>Loading...</h1>
+            <OrderItemSkeleton />
           )}
 
           <Separator className='mb-4' />

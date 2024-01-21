@@ -27,6 +27,7 @@ const OrdersPage = async ({
 
     const ordersWithStatusCount = await prisma.order.count({
       where: {
+        userId: session?.user.id,
         status: searchParams.status,
       },
     })
@@ -44,7 +45,11 @@ const OrdersPage = async ({
       take: ORDER_INFINITE_SCROLL_LIMIT,
     })
 
-    const allOrdersCount = await prisma.order.count()
+    const allOrdersCount = await prisma.order.count({
+      where: {
+        userId: session?.user.id,
+      },
+    })
 
     orders = allOrders
     ordersCount = allOrdersCount

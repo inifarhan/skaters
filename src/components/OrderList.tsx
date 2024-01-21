@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 import OrderCard from '@/components/cards/OrderCard'
-// import OrderCardSkeleton from '@/components/skeletons/OrderCardSkeleton'
+import OrderCardSkeleton from '@/components/skeletons/OrderCardSkeleton'
 import { ORDER_INFINITE_SCROLL_LIMIT } from '@/config'
 
 interface OrdersListProps {
@@ -74,9 +74,11 @@ const OrdersList: React.FC<OrdersListProps> = ({
           }
         })
       ) : (
-        <h1>You dont have any orders</h1>
+        <div className='min-h-[200px]'>
+          <h2 className='font-semibold text-xl text-center'>No orders found</h2>
+        </div>
       )}
-      {isFetchingNextPage && <h1>Loading...</h1>}
+      {isFetchingNextPage && <OrderCardSkeleton />}
     </>
   )
 }
