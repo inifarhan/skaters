@@ -1,6 +1,6 @@
 'use client'
 
-import { Order } from '@prisma/client'
+import type { Order } from '@prisma/client'
 import { ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -58,7 +58,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
               Canceled
             </Badge>
           )}
-          <OrderAction status={order.status} token={order.token} />
+          <OrderAction order={order} />
         </div>
       </div>
       <Separator className='mt-4' />

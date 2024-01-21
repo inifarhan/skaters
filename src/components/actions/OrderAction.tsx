@@ -1,6 +1,9 @@
 'use client'
 
+import type { Order } from '@prisma/client'
+import axios, { AxiosError } from 'axios'
 import { CreditCard, MoreVertical, ScanEye, XCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
@@ -15,19 +18,26 @@ import {
 } from '@/components/ui/DropdownMenu'
 
 interface OrderActionProps {
-  token: string
-  status: 'PENDING' | 'PAID' | 'CANCELED'
+  order: Order
 }
 
-export const OrderAction: React.FC<OrderActionProps> = ({ token, status }) => {
+export const OrderAction: React.FC<OrderActionProps> = ({ order }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
+
+  const router = useRouter()
 
   const onDelete = async () => {
     try {
       setLoading(true)
-      toast.success('Product deleted.')
+      await axios.delete(`/api/orders/${order.id}/cancel`)
+      router.push('/dashboard/orders?status=CANCELED')
+      toast.success('Order canceled.')
     } catch (error) {
+      console.log(error)
+      if (error instanceof AxiosError) {
+        return toast.error(error.response?.data)
+      }
       toast.error('Something went wrong')
     } finally {
       setLoading(false)
@@ -36,9 +46,9 @@ export const OrderAction: React.FC<OrderActionProps> = ({ token, status }) => {
   }
 
   const onPay = () => {
-    if (token) {
+    if (order.token) {
       // @ts-expect-error
-      window.snap.pay(token, {
+      window.snap.pay(order.token, {
         onSuccess: () => {
           toast.success('Payment success!')
         },
@@ -86,7 +96,7 @@ export const OrderAction: React.FC<OrderActionProps> = ({ token, status }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          {status === 'PENDING' ? (
+          {order.status === 'PENDING' ? (
             <>
               <DropdownMenuItem onClick={onPay}>
                 <CreditCard className='mr-2 h-4 w-4' />
@@ -101,7 +111,7 @@ export const OrderAction: React.FC<OrderActionProps> = ({ token, status }) => {
                 Cancel
               </DropdownMenuItem>
             </>
-          ) : status === 'PAID' ? (
+          ) : order.status === 'PAID' ? (
             <DropdownMenuItem>
               <ScanEye className='mr-2 h-4 w-4' />
               Detail
