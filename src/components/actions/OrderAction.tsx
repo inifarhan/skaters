@@ -65,6 +65,10 @@ export const OrderAction: React.FC<OrderActionProps> = ({ order }) => {
     }
   }
 
+  const onDetail = () => {
+    router.push(`/invoice/${order.id}`)
+  }
+
   useEffect(() => {
     const midtransUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'
 
@@ -102,7 +106,7 @@ export const OrderAction: React.FC<OrderActionProps> = ({ order }) => {
                 <CreditCard className='mr-2 h-4 w-4' />
                 Pay
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={onDetail}>
                 <ScanEye className='mr-2 h-4 w-4' />
                 Detail
               </DropdownMenuItem>
@@ -112,12 +116,12 @@ export const OrderAction: React.FC<OrderActionProps> = ({ order }) => {
               </DropdownMenuItem>
             </>
           ) : order.status === 'PAID' ? (
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={onDetail}>
               <ScanEye className='mr-2 h-4 w-4' />
               Detail
             </DropdownMenuItem>
           ) : (
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={onDetail}>
               <ScanEye className='mr-2 h-4 w-4' />
               Detail
             </DropdownMenuItem>
