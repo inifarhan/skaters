@@ -48,7 +48,7 @@ export default async function InvoicePage({
         {formatDate(order.createdAt)}
       </h2>
       <div className='my-8'>
-        <h2 className='font-semibold text-xl mb-8'>Purchased Products</h2>
+        <h2 className='font-semibold text-xl mb-4 sm:mb-8'>Purchased Products</h2>
         <div className='mb-6'>
           <InvoiceTable orderItems={orderItems} />
         </div>

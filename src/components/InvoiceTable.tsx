@@ -26,7 +26,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({ orderItems }) => {
   }
 
   return (
-    <table className='text-left w-full'>
+    <table className='sm:text-left text-center text-xs sm:text-base w-full'>
       <tr>
         <th className='py-2'>Product name</th>
         <th>Store Name</th>
