@@ -5,6 +5,7 @@ import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { UploadFileResponse } from 'uploadthing/client'
 
+import deleteFiles from '@/actions/delete-files'
 import { Button } from '@/components/ui/Button'
 import { UploadButton } from '@/lib/uploadthing'
 
@@ -30,7 +31,10 @@ export const FileUpload = ({
               <Button
                 type='button'
                 className='z-10 absolute -top-3 -right-3 hover:bg-destructive'
-                onClick={() => onRemove(item.url)}
+                onClick={async () => {
+                  onRemove(item.url)
+                  await deleteFiles(item.key)
+                }}
                 variant='destructive'
                 size='icon'
               >
