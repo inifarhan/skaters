@@ -101,7 +101,7 @@ Contributions are welcome! Please open an issue if you have any questions or sug
 Thanks goes to these wonderful people for their contributions:
 
 <p align="center">
- <a href="https://github.com/sadmann7/skateshop/graphs/contributors">
+ <a href="https://github.com/inifarhan/skaters/graphs/contributors">
    <img src="https://contrib.rocks/image?repo=inifarhan/skaters" />
  </a>
 </p>
