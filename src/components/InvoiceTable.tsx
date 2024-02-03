@@ -22,7 +22,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({ orderItems }) => {
   }, [])
 
   if (!isMounted) {
-    return null
+    return <p className='my-8'>Loading...</p>
   }
 
   return (
@@ -39,7 +39,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({ orderItems }) => {
           <td>{item.store.name}</td>
           <td>1</td>
           {/* @ts-expect-error Decimal type */}
-          <td>{formatPrice  (parseFloat(item.product.price))} x 1</td>
+          <td>{formatPrice(parseFloat(item.product.price))} x 1</td>
         </tr>
       ))}
     </table>
