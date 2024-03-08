@@ -112,7 +112,7 @@ Thanks goes to these wonderful people for their contributions:
 
 ## License
 
-Licensed under the MIT License. Check the [LICENSE](./LICENSE) file for details.
+Licensed under the MIT License. Check the [LICENSE](./LICENSE) file for details
 
 ## Credits
 
